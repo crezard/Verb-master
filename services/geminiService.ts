@@ -4,23 +4,31 @@ import { Verb } from "../types.ts";
 // Initialize Gemini Client
 // Prioritize VITE_VAIT_API_KEY (Vite standard) then fallback to process.env.API_KEY
 const getApiKey = (): string => {
+  let apiKey = "";
+
   // 1. Try Vite Environment Variable (Priority)
-  // We use (import.meta as any) to avoid TypeScript errors if types aren't strictly configured for Vite
   try {
-    if (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_VAIT_API_KEY) {
-      return (import.meta as any).env.VITE_VAIT_API_KEY;
+    // @ts-ignore
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_VAIT_API_KEY) {
+      // @ts-ignore
+      apiKey = import.meta.env.VITE_VAIT_API_KEY;
     }
   } catch (e) {
-    // Ignore errors if import.meta is not available in the environment
+    // Ignore errors if import.meta is not available
   }
 
   // 2. Fallback to Standard Environment Variable (Node/Process)
-  if (typeof process !== 'undefined' && process.env?.API_KEY) {
-    return process.env.API_KEY;
+  if (!apiKey) {
+    try {
+      if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+        apiKey = process.env.API_KEY;
+      }
+    } catch (e) {
+      // Ignore process access errors
+    }
   }
 
-  // Return empty string if no key found (SDK will likely throw or fail on request)
-  return "";
+  return apiKey || "";
 };
 
 const ai = new GoogleGenAI({ apiKey: getApiKey() });
