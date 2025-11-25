@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
+console.log('Starting app mount...');
+
 try {
   const rootElement = document.getElementById('root');
   if (!rootElement) {
@@ -14,6 +16,7 @@ try {
       <App />
     </React.StrictMode>
   );
+  console.log('App mounted successfully');
 } catch (err) {
   console.error("Error mounting React app:", err);
   document.body.innerHTML += `<div style="color:red; padding:20px;">Failed to mount app: ${err}</div>`;

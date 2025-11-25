@@ -2,36 +2,8 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Verb } from "../types";
 
 // Initialize Gemini Client
-// Prioritize VITE_VAIT_API_KEY (Vite standard) then fallback to process.env.API_KEY
-const getApiKey = (): string => {
-  let apiKey = "";
-
-  // 1. Try Vite Environment Variable (Priority)
-  try {
-    // @ts-ignore
-    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_VAIT_API_KEY) {
-      // @ts-ignore
-      apiKey = import.meta.env.VITE_VAIT_API_KEY;
-    }
-  } catch (e) {
-    // Ignore errors if import.meta is not available
-  }
-
-  // 2. Fallback to Standard Environment Variable (Node/Process)
-  if (!apiKey) {
-    try {
-      if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-        apiKey = process.env.API_KEY;
-      }
-    } catch (e) {
-      // Ignore process access errors
-    }
-  }
-
-  return apiKey || "";
-};
-
-const ai = new GoogleGenAI({ apiKey: getApiKey() });
+// The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const modelName = 'gemini-2.5-flash';
 
