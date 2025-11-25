@@ -19,7 +19,7 @@ const VerbCard: React.FC<VerbCardProps> = ({ verb, onSpeak }) => {
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
              <span className={`px-2 py-1 text-xs font-semibold rounded-full ${verb.isIrregular ? 'bg-rose-100 text-rose-600' : 'bg-emerald-100 text-emerald-600'}`}>
-              {verb.isIrregular ? 'Irregular' : 'Regular'}
+              {verb.isIrregular ? '불규칙' : '규칙'}
              </span>
           </div>
           <button 
@@ -55,10 +55,6 @@ const VerbCard: React.FC<VerbCardProps> = ({ verb, onSpeak }) => {
             <span>Tap to reveal forms</span>
           </div>
         )}
-
-        <div className={`mt-4 pt-4 border-t border-slate-100 ${isFlipped ? 'block' : 'hidden'}`}>
-          <p className="text-sm text-slate-600 italic">"{verb.example}"</p>
-        </div>
       </div>
     </div>
   );
