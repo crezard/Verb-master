@@ -27,6 +27,11 @@ const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 const modelName = 'gemini-2.5-flash';
 
+// Simple ID generator to avoid 'uuid' package dependency and ensure compatibility
+const generateId = (): string => {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+};
+
 export const generateVerbsByTopic = async (topic: string, count: number = 5): Promise<Verb[]> => {
   try {
     const prompt = `Generate ${count} English verbs related to the topic: "${topic}". 
@@ -61,7 +66,7 @@ export const generateVerbsByTopic = async (topic: string, count: number = 5): Pr
     // Map to internal Verb type with IDs
     return data.map((item: any) => ({
       ...item,
-      id: crypto.randomUUID(),
+      id: generateId(),
     }));
 
   } catch (error) {
