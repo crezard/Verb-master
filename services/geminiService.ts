@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import { Verb } from "../types";
+import { Verb } from "../types.ts";
 
 // Initialize Gemini Client
 // Prioritize VITE_VAIT_API_KEY (Vite standard) then fallback to process.env.API_KEY

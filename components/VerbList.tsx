@@ -1,6 +1,6 @@
 import React from 'react';
-import { Verb } from '../types';
-import VerbCard from './VerbCard';
+import { Verb } from '../types.ts';
+import VerbCard from './VerbCard.tsx';
 import { Search } from 'lucide-react';
 
 interface VerbListProps {

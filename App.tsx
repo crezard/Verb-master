@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Verb, AppView } from './types';
-import { INITIAL_VERBS } from './constants';
-import { generateVerbsByTopic } from './services/geminiService';
-import QuizMode from './components/QuizMode';
-import VerbList from './components/VerbList';
+import { Verb, AppView } from './types.ts';
+import { INITIAL_VERBS } from './constants.ts';
+import { generateVerbsByTopic } from './services/geminiService.ts';
+import QuizMode from './components/QuizMode.tsx';
+import VerbList from './components/VerbList.tsx';
 import { Book, Brain, Sparkles, LayoutDashboard, Plus, Loader2, ArrowLeft } from 'lucide-react';
 
 const App: React.FC = () => {

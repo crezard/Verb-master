@@ -1,4 +1,4 @@
-import { Verb } from './types';
+import { Verb } from './types.ts';
 
 export const INITIAL_VERBS: Verb[] = [
   {
