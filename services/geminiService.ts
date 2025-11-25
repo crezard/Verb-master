@@ -1,11 +1,26 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Verb } from "../types";
 
-// Initialize Gemini Client
-// The API key must be obtained exclusively from the environment variable process.env.API_KEY.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Singleton instance holder
+let aiClient: GoogleGenAI | null = null;
 
 const modelName = 'gemini-2.5-flash';
+
+// Helper to get or initialize the client safely
+const getAiClient = () => {
+  if (aiClient) return aiClient;
+
+  // Try to get key from process.env (Node/Standard)
+  // We avoid strict top-level access to prevent runtime crashes if env is missing
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
+    throw new Error("API Key is missing. Please check your configuration.");
+  }
+
+  aiClient = new GoogleGenAI({ apiKey });
+  return aiClient;
+};
 
 // Simple ID generator to avoid 'uuid' package dependency and ensure compatibility
 const generateId = (): string => {
@@ -14,6 +29,9 @@ const generateId = (): string => {
 
 export const generateVerbsByTopic = async (topic: string, count: number = 5): Promise<Verb[]> => {
   try {
+    // Initialize client here, inside the async function
+    const ai = getAiClient();
+
     const prompt = `Generate ${count} English verbs related to the topic: "${topic}". 
     Focus on a mix of regular and irregular verbs useful for daily conversation.
     Provide the Base form, Past Simple, Past Participle, Korean meaning, and a short example sentence.`;
@@ -57,6 +75,8 @@ export const generateVerbsByTopic = async (topic: string, count: number = 5): Pr
 
 export const explainVerbContext = async (verb: Verb): Promise<string> => {
   try {
+    const ai = getAiClient();
+
     const prompt = `Explain the nuances of the verb "${verb.base}" (Past: ${verb.past}, PP: ${verb.participle}) for a Korean English learner. 
     Explain when to use the past simple vs past participle in 2 sentences max.`;
 
