@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Verb } from '../types.ts';
+import { Verb } from '../types';
 import { Volume2, BookOpen } from 'lucide-react';
 
 interface VerbCardProps {

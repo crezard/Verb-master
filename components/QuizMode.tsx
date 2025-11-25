@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Verb } from '../types.ts';
+import { Verb } from '../types';
 import { CheckCircle, XCircle, ArrowRight, RefreshCw, Trophy } from 'lucide-react';
 
 interface QuizModeProps {
