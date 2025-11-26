@@ -201,7 +201,10 @@ const App: React.FC = () => {
         setView(AppView.LEARN);
       } else alert("중복된 동사입니다.");
       setTopic('');
-    } catch (err) { alert("생성 실패: .env 파일의 VITE_VAIT_API_KEY를 확인하세요."); } 
+    } catch (err: any) { 
+      console.error(err);
+      alert(`오류: ${err.message}`); 
+    } 
     finally { setIsGen(false); }
   };
 
