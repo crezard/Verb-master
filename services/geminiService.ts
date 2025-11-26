@@ -71,7 +71,8 @@ export const generateVerbsByTopic = async (topic: string, count: number = 5) => 
       },
     });
     
-    const text = res.text();
+    // Fixed: .text is a property, not a function
+    const text = res.text;
     if (!text) throw new Error("Empty response from AI");
 
     const data = JSON.parse(text);
